@@ -1,0 +1,62 @@
+﻿@*
+    Search page where user enters keyword
+    Optional filter by Old/New Testament
+*@
+
+@{
+    ViewData["Title"] = "Search Bible";
+}
+
+<div class="container mt-4">
+    <h2>Search Bible Verses</h2>
+    <p class="text-muted">Search for verses containing specific words or phrases</p>
+
+    <!-- Display error if any -->
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            @ViewBag.Error
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Search Form -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <form method="get" action="/Search/Results">
+                <!-- Keyword Input -->
+                <div class="mb-3">
+                    <label for="keyword" class="form-label">Enter Keyword:</label>
+                    <input type="text" id="keyword" name="keyword" class="form-control"
+                           placeholder="e.g., love, faith, hope" required />
+                </div>
+
+                <!-- Testament Filter (Optional) -->
+                <div class="mb-3">
+                    <label class="form-label">Filter by Testament (Optional):</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="testament" value="" id="testamentAll" checked>
+                        <label class="form-check-label" for="testamentAll">
+                            Both Old and New Testament
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="testament" value="OT" id="testamentOT">
+                        <label class="form-check-label" for="testamentOT">
+                            Old Testament Only
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="testament" value="NT" id="testamentNT">
+                        <label class="form-check-label" for="testamentNT">
+                            New Testament Only
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>

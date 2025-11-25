@@ -1,0 +1,101 @@
+﻿@*
+    Browse Bible by Reference
+    User selects Book → Chapter → View Verses
+*@
+
+@{
+    ViewData["Title"] = "Browse Bible";
+}
+
+<div class="container mt-4">
+    <h2>Browse Bible by Reference</h2>
+    <p class="text-muted">Select a book and chapter to view verses</p>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <!-- Book Selection Dropdown -->
+            <div class="mb-3">
+                <label for="bookSelect" class="form-label">Select Book:</label>
+                <select id="bookSelect" class="form-select">
+                    <option value="">-- Select a Book --</option>
+                    @* Loop through all books passed from controller *@
+                    @foreach (var book in ViewBag.Books)
+                    {
+                        <option value="@book.BookNumber">@book.BookName</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Chapter Selection Dropdown (initially hidden) -->
+            <div class="mb-3" id="chapterSection" style="display: none;">
+                <label for="chapterSelect" class="form-label">Select Chapter:</label>
+                <select id="chapterSelect" class="form-select">
+                    <option value="">-- Select a Chapter --</option>
+                </select>
+            </div>
+
+            <!-- View Verses Button (initially hidden) -->
+            <div id="viewButtonSection" style="display: none;">
+                <button id="viewVersesBtn" class="btn btn-primary">View Verses</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results will be displayed here -->
+    <div id="versesSection" class="mt-4"></div>
+</div>
+
+@section Scripts {
+    <script>
+        // When book is selected, load chapters
+        document.getElementById('bookSelect').addEventListener('change', function() {
+            var bookNumber = this.value;
+
+            // Hide chapter section if no book selected
+            if (!bookNumber) {
+                document.getElementById('chapterSection').style.display = 'none';
+                document.getElementById('viewButtonSection').style.display = 'none';
+                return;
+            }
+
+            // AJAX call to get chapters for selected book
+            fetch('/Bible/GetChapters?bookNumber=' + bookNumber)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate chapter dropdown
+                    var chapterSelect = document.getElementById('chapterSelect');
+                    chapterSelect.innerHTML = '<option value="">-- Select a Chapter --</option>';
+
+                    data.chapters.forEach(function(chapter) {
+                        var option = document.createElement('option');
+                        option.value = chapter;
+                        option.text = 'Chapter ' + chapter;
+                        chapterSelect.appendChild(option);
+                    });
+
+                    // Show chapter section
+                    document.getElementById('chapterSection').style.display = 'block';
+                })
+                .catch(error => console.error('Error loading chapters:', error));
+        });
+
+        // When chapter is selected, show view button
+        document.getElementById('chapterSelect').addEventListener('change', function() {
+            if (this.value) {
+                document.getElementById('viewButtonSection').style.display = 'block';
+            } else {
+                document.getElementById('viewButtonSection').style.display = 'none';
+            }
+        });
+
+        // When view button clicked, redirect to GetVerses action
+        document.getElementById('viewVersesBtn').addEventListener('click', function() {
+            var bookNumber = document.getElementById('bookSelect').value;
+            var chapter = document.getElementById('chapterSelect').value;
+
+            if (bookNumber && chapter) {
+                window.location.href = '/Bible/GetVerses?bookNumber=' + bookNumber + '&chapter=' + chapter;
+            }
+        });
+    </script>
+}

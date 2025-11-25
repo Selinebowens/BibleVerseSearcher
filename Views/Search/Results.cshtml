@@ -1,0 +1,61 @@
+﻿@*
+    Display search results
+    Shows all verses matching the keyword
+*@
+
+@model List<BibleVerseSearcher.Models.Verse>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<div class="container mt-4">
+    <!-- Header with search info -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>Search Results</h2>
+            <p class="text-muted">
+                Searched for: <strong>"@ViewBag.Keyword"</strong>
+                @if (!string.IsNullOrEmpty(ViewBag.Testament))
+                {
+                    <span> in @(ViewBag.Testament == "OT" ? "Old Testament" : "New Testament")</span>
+                }
+            </p>
+            <p class="text-muted">Found @ViewBag.ResultCount result(s)</p>
+        </div>
+        <a href="/Search/Index" class="btn btn-secondary">New Search</a>
+    </div>
+
+    <!-- Display results or no results message -->
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            <h4>No verses found</h4>
+            <p>Try a different keyword or remove the testament filter.</p>
+        </div>
+    }
+    else
+    {
+        <!-- Display each verse -->
+        <div class="list-group">
+            @foreach (var verse in Model)
+            {
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <!-- Verse reference (clickable) -->
+                            <h5 class="mb-2">
+                                <a href="/Bible/VerseDetail?bookNumber=@verse.BookNumber&chapter=@verse.Chapter&verse=@verse.VerseNumber"
+                                   class="text-decoration-none">
+                                    @verse.BookName @verse.Chapter:@verse.VerseNumber
+                                </a>
+                            </h5>
+                            <!-- Verse text -->
+                            <p class="mb-0">@verse.Text</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
