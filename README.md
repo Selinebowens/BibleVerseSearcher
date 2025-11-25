@@ -2,14 +2,14 @@
 
 ASP.NET Core MVC application for searching and browsing Bible verses with personal commenting functionality.
 
-## 🎯 Features
+## Features
 - **Browse by Reference:** Select book and chapter from cascading dropdowns to view verses
 - **Keyword Search:** Search all verses by keyword with optional Old/New Testament filtering
 - **Verse Details:** Click any verse to view full text and add personal study notes
 - **Comment System:** Add, view, and delete comments on individual verses
 - **Professional UI:** Custom CSS styling with responsive design
 
-## 🛠️ Technologies Used
+## Technologies Used
 - **Backend:** ASP.NET Core MVC
 - **Database:** SQL Server (Docker container)
 - **Data Access:** ADO.NET with parameterized queries
@@ -17,7 +17,7 @@ ASP.NET Core MVC application for searching and browsing Bible verses with person
 - **Frontend:** Razor Views, Bootstrap 5, JavaScript/AJAX
 - **Version Control:** Git & GitHub
 
-## 📊 Database Structure
+## Database Structure
 
 ### Tables:
 1. **books** - All 66 books of the Bible
@@ -45,39 +45,37 @@ ASP.NET Core MVC application for searching and browsing Bible verses with person
 - Psalms 23:1-6 (The Lord is my shepherd)
 - John 3:1-5, 16 (Born again, God so loved the world)
 
-## 🏗️ N-Layer Architecture
-```
-┌─────────────────────────────────────────┐
-│         Presentation Layer              │
-│  (Views: Browse, Search, VerseDetail)   │
-└─────────────────────────────────────────┘
-                   ↓
-┌─────────────────────────────────────────┐
-│         Controller Layer                │
-│  (BibleController, SearchController)    │
-└─────────────────────────────────────────┘
-                   ↓
-┌─────────────────────────────────────────┐
-│       Business Logic Layer              │
-│  (BookService, VerseService, etc.)      │
-└─────────────────────────────────────────┘
-                   ↓
-┌─────────────────────────────────────────┐
-│       Data Access Layer (DAO)           │
-│  (BookDAO, VerseDAO, CommentDAO)        │
-└─────────────────────────────────────────┘
-                   ↓
-┌─────────────────────────────────────────┐
-│         Database Layer                  │
-│  (SQL Server - BibleVerse DB)           │
-└─────────────────────────────────────────┘
-```
+##  N-Layer Architecture
 
-## 🚀 Setup Instructions
+
+        Presentation Layer              
+ (Views: Browse, Search, VerseDetail)   
+
+               ↓
+
+        Controller Layer                
+(BibleController, SearchController)    
+
+               ↓
+
+       Business Logic Layer              
+(BookService, VerseService, etc.)      
+
+               ↓
+
+       Data Access Layer (DAO)           
+(BookDAO, VerseDAO, CommentDAO)        
+
+               ↓
+
+       Database Layer                  
+(SQL Server - BibleVerse DB)           
+
+## Setup Instructions
 
 ### Prerequisites:
 - Visual Studio 2022
-- .NET 6.0 or higher
+- .NET 8.0 or higher
 - Docker Desktop (for SQL Server)
 
 ### Installation Steps:
@@ -98,7 +96,7 @@ ASP.NET Core MVC application for searching and browsing Bible verses with person
    - Add your SQL Server connection string
 
 4. **Create database:**
-   - Run the SQL scripts in `/Database` folder (if provided)
+   - Run the SQL scripts in `/Database` folder 
    - Or create tables manually using the database scripts
 
 5. **Insert sample data:**
@@ -113,7 +111,7 @@ ASP.NET Core MVC application for searching and browsing Bible verses with person
 7. **Access the app:**
    - Open browser to `https://localhost:7298` (or the port shown in console)
 
-## 📖 Usage
+## Usage
 
 ### Browse Bible:
 1. Click "Browse Bible" in navigation
@@ -129,7 +127,7 @@ ASP.NET Core MVC application for searching and browsing Bible verses with person
 4. Click "Search"
 5. Results show all matching verses
 
-## 🎓 Academic Context
+## Academic Context
 
 **Course:** CST-350 - Enterprise Application Development  
 **Assignment:** Activity 8 - Bible Verse Searcher  
@@ -145,18 +143,18 @@ ASP.NET Core MVC application for searching and browsing Bible verses with person
 - AJAX for dynamic UI updates
 - Professional UI/UX design
 
-## 👤 Author
+## Author
 
 **Seline Bowens**  
 Student - Computer Science  
 Grand Canyon University
 
-## 📝 Notes
+## Notes
 
 - This application uses sample verses for demonstration purposes
 - The complete Bible (31,102 verses) can be loaded by importing the full t_kjv.sql file
 - Connection strings should be stored in `appsettings.Development.json` (not tracked by Git)
 
-## 📜 License
+## License
 
 This is a student project created for educational purposes at Grand Canyon University.
